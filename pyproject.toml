@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "convolutedpneumoniadetection"
+version = "0.1.0"
+description = ""
+authors = ["Samuel Lowe <samlowe106@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tensorflow = "^2.18.0"
+notebook = "^7.3.2"
+matplotlib = "^3.10.0"
+seaborn = "^0.13.2"
+torch = "^2.6.0"
+scikit-learn = "^1.6.1"
+pandas = "^2.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
