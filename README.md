@@ -1,26 +1,33 @@
-# Data Science Template
+# Convoluted Pneumonia Detection
 
-This is a template for a data science project in a Python Jupyter notebook. This README is mostly a template, and should be customized accordingly during project creation. Here's a checklist after making a new repository from this template:
+_Detecting pneumonia from chest x-rays using convolutional neural networks in tensorflow_
 
-- [] Ensure that you've installed [poetry](https://python-poetry.org/)
-- [] Run `poetry init` to generate the [pyproject.toml](pyproject.toml) file, then `poetry add` and `poetry install` dependencies
-- [] Create a `data/` directory and add relevant data files there
-- [] Properly credit whatever data set is being used in the [data set section](#data-set) section of this README
-- [] Fill in the [license](LICENSE) and (optionally) update the [license section](#license) of this README
-- [] Fill out or delete the [contributing section](#contributing) of this README
+![](graphics/IM-0128-0001.jpeg)
 
-The [setup.sh](setup.sh) script (Linux only!) has been added to assist with Poetry installation and other miscellaneous setup tasks.
+![](graphics/person1_bacteria_1.jpeg)
+
+One of these people is healthy, and the other has pneumonia. Can you tell which is which?
 
 ## Data Set
 
-The data set can be found [here]().
+The data set can be found [here](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia).
 
-## License
+## Overview
 
-Please consult the [license file](LICENSE).
+The standard technology to answer this question is a convolutional neural network. While we could train a "standard" neural network to glean information from images, in practice it's much easier to use special kinds of layers -- called convolutional layers -- which contain information not just from a single pixel, but from a small region of the image. The kind of "window" that these layers provide into the image is represented by a [convolution](https://en.wikipedia.org/wiki/Convolution):
 
-## Installation
+![](https://upload.wikimedia.org/wikipedia/commons/1/19/2D_Convolution_Animation.gif)_2D convolution animation. Michael Plotke, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons_
 
-Make sure you have a compatible version of Python, as specified in the [pyproject.toml file](pyproject.toml), and that you've installed [poetry](https://python-poetry.org/). From there, you should be able to run `poetry install` to install the necessary dependencies and run the project.
+With convolutional layers, we can train neural nets to understand image data much more effectively.
 
-## Contributing
+### Exploratory Analysis
+
+Besides just looking at the image in the training set, the main data analysis I performed was just seeing how many images fell into each category. On my League of Losers project, I was lucky that there was basically a 50-50 split between each category. However, this data set was significantly skewed towards the pneumonia category:
+
+![](graphics/test set class breakdown.png)
+
+![](graphics/train set class breakdown.png)
+
+This causes some issues. If our neural network just predicted that everything was pneumonia, it would have over 60% accuracy! In practice, we would also be very concerned both about **false positives** and **false negatives**, and we can't determine the rate of either misdiagnosis just by looking at accuracy. One way that we can think about this trend is in terms of **precision** and **recall**: precision is the ratio of true positives to "retrieved elements" (which are true positives _and_ false positives), and recall is the ratio of true positives to "relevant elements" (relevant elements are true positives and false _negatives_).
+
+![](https://upload.wikimedia.org/wikipedia/commons/2/26/Precisionrecall.svg)_Visualization of precision and recall. Walber, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons_
