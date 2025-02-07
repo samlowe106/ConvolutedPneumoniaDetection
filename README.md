@@ -26,9 +26,9 @@ With convolutional layers, we can train neural nets to understand image data muc
 
 Besides just looking at the image in the training set, the main data analysis I performed was just seeing how many images fell into each category. On my League of Losers project, I was lucky that there was basically a 50-50 split between each category. However, this data set was significantly skewed towards the pneumonia category:
 
-![](graphics/test set class breakdown.png)
+![](graphics/test_set_class_breakdown.png)
 
-![](graphics/train set class breakdown.png)
+![](graphics/train_set_class_breakdown.png)
 
 This causes some issues. If our neural network just predicted that everything was pneumonia, it would have over 60% accuracy! In practice, we would also be very concerned both about **false positives** and **false negatives**, and we can't determine the rate of either misdiagnosis just by looking at accuracy. One way that we can think about this trend is in terms of **precision** and **recall**: precision is the ratio of true positives to "retrieved elements" (which are true positives _and_ false positives), and recall is the ratio of true positives to "relevant elements" (relevant elements are true positives and false _negatives_).
 
